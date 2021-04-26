@@ -973,7 +973,7 @@ def compose_run(compose, args):
         # TODO: handle volumes
         pass
     cnt['tty']=False if args.T else True
-    cnt['command']=args.cnt_command if args.cnt_command
+    if args.cnt_command: cnt['command']=args.cnt_command
     # run podman
     podman_args = container_to_args(compose, cnt, args.detach)
     if not args.detach:
