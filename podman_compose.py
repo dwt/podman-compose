@@ -997,8 +997,6 @@ def compose_exec(compose, args):
         cnt['environment'].update(additional_env_vars)
     # run podman
     podman_args = container_to_args(compose, cnt, args.detach, podman_command="exec")
-    print(podman_args)
-    return
     compose.podman.run(podman_args, sleep=0)
 
 def transfer_service_status(compose, args, action):
