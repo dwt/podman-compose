@@ -1102,8 +1102,8 @@ def compose_run_parse(parser):
         help="Working directory inside the container")
     parser.add_argument('service', metavar='service', nargs=None,
         help='service name')
-    parser.add_argument('command', metavar='cnt_command', nargs=argparse.REMAINDER,
-        help='comman and its args')
+    parser.add_argument('cnt_command', metavar='cnt_command', nargs=argparse.REMAINDER,
+        help='command and its args')
 
 @cmd_parse(podman_compose, 'exec')
 def compose_run_parse(parser):
