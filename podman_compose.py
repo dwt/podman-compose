@@ -603,7 +603,7 @@ class Podman:
         cmd = [self.podman_path]+podman_args
         return subprocess.check_output(cmd)
 
-    def run(self, podman_args, wait=True, sleep=1):
+    def run(self, podman_args, wait=True, sleep=1, exit_with_code=False):
         podman_args_str = [str(arg) for arg in podman_args]
         print("podman " + " ".join(podman_args_str))
         if self.dry_run:
@@ -615,6 +615,8 @@ class Podman:
             print(p.wait())
         if sleep:
             time.sleep(sleep)
+        if exit_with_code and p.returncode > 0:
+            sys.exit(p.returncode)
         return p
 
 class PodmanCompose:
@@ -980,7 +982,7 @@ def compose_run(compose, args):
         podman_args.insert(1, '-i')
         if args.rm:
             podman_args.insert(1, '--rm')
-    compose.podman.run(podman_args, sleep=0)
+    compose.podman.run(podman_args, sleep=0, exit_with_code=True)
 
 @cmd_run(podman_compose, 'exec', 'execute a command in a running container')
 def compose_exec(compose, args):
